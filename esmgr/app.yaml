@@ -3,5 +3,5 @@ search:
     description: List of cluster names.
     type: {}
     value:
-      cluster_a: ['cluster_a_host1', 'cluster_a_host2']
-      cluster_b: ['cluster_b_host1', 'cluster_b_host2']
+      cluster_a: 'cluster_a_name_and_port'
+      cluster_b: 'cluster_b_name_and_port'
