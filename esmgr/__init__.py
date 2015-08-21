@@ -28,8 +28,8 @@ def get_getter(args, config):
   return getter
 
 def verb_list(args, config):
-  getter = get_getter(args, config)
   if args['<cluster>'] is not None:
+    getter = get_getter(args, config)
     es_settings = getter("_settings")
     print "\n".join(es_settings.keys())
   else:
