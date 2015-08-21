@@ -46,7 +46,19 @@ def verb_list(args, config):
     print "\n".join(config['ConnectionStrings'].keys())
   exit(0)
 
+def verb_replicas(args, config):
+  getter = get_getter(args, config)
+  index = args['<index>']
+  index_settings = getter("{index}/_settings".format(index=index))
+  print chase(index_settings, [index]+"settings.index.number_of_replicas".split("."))
+  exit(0)
 
+def verb_shards(args, config):
+  getter = get_getter(args, config)
+  index = args['<index>']
+  index_settings = getter("{index}/_settings".format(index=index))
+  print chase(index_settings, [index]+"settings.index.number_of_shards".split("."))
+  exit(0)
 
 def check_wrapper(check, args, config):
     def check_logic(args, config, result, output):
@@ -82,6 +94,7 @@ esmgr. A Elastic Search cluster management tool.
 Usage:
   esmgr [options] list
   esmgr [options] <cluster> list
+  esmgr [options] <cluster> <index> (replicas|shards)
 
 Options:
   -h --help        Show this screen.
@@ -91,6 +104,8 @@ Options:
 
 verb_map = {
  'list': verb_list,
+ 'replicas': verb_replicas,
+ 'shards': verb_shards
 }
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
