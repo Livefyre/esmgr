@@ -9,7 +9,7 @@ from docopt import docopt
 from functools import partial
 from operator import ge, le
 from requests import get
-from requests import post
+from requests import put
 from json import loads as decode
 from json import dumps as encode
 
@@ -44,7 +44,8 @@ def get_setter(args, config):
   def setter(path, data):
     url = "http://{conn_str}/{path}".format(conn_str=conn_str, path=path)
     try:
-      resp = post(url, data=encode(data))
+      json_data = encode(data)
+      resp = put(url, data=json_data)
       if not resp.ok:
         resp.raise_for_status()
     except Exception as e:
