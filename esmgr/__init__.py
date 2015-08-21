@@ -8,6 +8,26 @@ from pyyacc.parser import build
 from docopt import docopt
 from functools import partial
 from operator import ge, le
+from requests import get
+from json import loads as decode
+from json import dumps as encode
+
+def get_getter(args, config):
+  cluster = args['<cluster>']
+  conn_str = config['ConnectionStrings'][cluster]
+  print "***", conn_str
+  def getter(path):
+    url = "http://{conn_str}/{path}".format(conn_str=conn_str, path=path)
+    print "+++", url
+    try:
+      resp = get(url)
+      if resp.status_code != 200:
+        resp.raise_for_status()
+      else:
+        return decode(resp.content)
+    except Exception as e:
+      raise e
+  return getter
 
 def verb_list(args, config):
   print "\n".join(config['ConnectionStrings'].keys())
