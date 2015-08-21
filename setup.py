@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='esmgr',
-      version='1.0',
+      version='0.1',
       description='Tool for managing elastic search clusters.',
       url='https://github.com/Livefyre/elasticsearch-mgr',
       author='andrew thomson',
