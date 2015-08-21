@@ -46,13 +46,7 @@ def verb_list(args, config):
     print "\n".join(config['ConnectionStrings'].keys())
   exit(0)
 
-def verb_config(args, config):
-    raise NotImplementedError()
-    exit(0)
 
-def verb_status(args, config):
-    raise NotImplementedError()
-    exit(0)
 
 def check_wrapper(check, args, config):
     def check_logic(args, config, result, output):
@@ -87,7 +81,7 @@ esmgr. A Elastic Search cluster management tool.
 
 Usage:
   esmgr [options] list
-  esmgr [options] <cluster> (list|config|status)
+  esmgr [options] <cluster> list
 
 Options:
   -h --help        Show this screen.
@@ -97,8 +91,6 @@ Options:
 
 verb_map = {
  'list': verb_list,
- 'config': verb_config,
- 'status': verb_status,
 }
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
