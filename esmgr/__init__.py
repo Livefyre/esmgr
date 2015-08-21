@@ -30,7 +30,12 @@ def get_getter(args, config):
   return getter
 
 def verb_list(args, config):
-  print "\n".join(config['ConnectionStrings'].keys())
+  getter = get_getter(args, config)
+  if args['<cluster>'] is not None:
+    es_settings = getter("_settings")
+    print "\n".join(es_settings.keys())
+  else:
+    print "\n".join(config['ConnectionStrings'].keys())
   exit(0)
 
 def verb_config(args, config):
