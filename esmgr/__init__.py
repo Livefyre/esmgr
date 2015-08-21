@@ -62,8 +62,11 @@ def verb_list(args, config):
   exit(0)
 
 def verb_replicas(args, config):
-  index = args['<index>']
-  path = "{index}/_settings".format(index=index)
+  parts = []
+  if args['<index>'] is not None:
+    parts.append(args['<index>'])
+  parts.append("_settings")
+  path = "/".join(parts)
   if args['<value>']:
     setter = get_setter(args, config)
     index_settings = {"number_of_replicas": int(args['<value>'])}
@@ -113,9 +116,8 @@ usage = \
 esmgr. A Elastic Search cluster management tool.
 
 Usage:
-  esmgr [options] list
-  esmgr [options] <cluster> list
-  esmgr [options] <cluster> <index> (replicas|shards) [<value>]
+  esmgr [options] list [<cluster>]
+  esmgr [options] (replicas|shards) <cluster> [<index>] [<value>]
 
 Options:
   -h --help        Show this screen.
