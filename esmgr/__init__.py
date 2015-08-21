@@ -50,11 +50,11 @@ def check_wrapper(check, args, config):
 
 usage = \
 """
-mongo_mgr. A MongoDB management tool.
+esmgr. A Elastic Search cluster management tool.
 
 Usage:
-  mongomgr [options] list
-  mongomgr [options] <replica-set> (config|status)
+  esmgr [options] list
+  esmgr [options] <cluster> (list|config|status)
 
 Options:
   -h --help        Show this screen.
