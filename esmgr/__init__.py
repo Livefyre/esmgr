@@ -62,10 +62,16 @@ def verb_list(args, config):
   exit(0)
 
 def verb_replicas(args, config):
-  getter = get_getter(args, config)
   index = args['<index>']
-  index_settings = getter("{index}/_settings".format(index=index))
-  print chase(index_settings, [index]+"settings.index.number_of_replicas".split("."))
+  path = "{index}/_settings".format(index=index)
+  if args['<value>']:
+    setter = get_setter(args, config)
+    index_settings = {"number_of_replicas": int(args['<value>'])}
+    setter(path, index_settings)
+  else:
+    getter = get_getter(args, config)
+    index_settings = getter(path)
+    print chase(index_settings, [index]+"settings.index.number_of_replicas".split("."))
   exit(0)
 
 def verb_shards(args, config):
@@ -109,7 +115,7 @@ esmgr. A Elastic Search cluster management tool.
 Usage:
   esmgr [options] list
   esmgr [options] <cluster> list
-  esmgr [options] <cluster> <index> (replicas|shards)
+  esmgr [options] <cluster> <index> (replicas|shards) [<value>]
 
 Options:
   -h --help        Show this screen.
