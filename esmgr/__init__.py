@@ -9,6 +9,7 @@ from docopt import docopt
 from functools import partial
 from operator import ge, le
 from requests import get
+from requests import post
 from json import loads as decode
 from json import dumps as encode
 
@@ -36,6 +37,19 @@ def get_getter(args, config):
     except Exception as e:
       raise e
   return getter
+
+def get_setter(args, config):
+  cluster = args['<cluster>']
+  conn_str = config['ConnectionStrings'][cluster]
+  def setter(path, data):
+    url = "http://{conn_str}/{path}".format(conn_str=conn_str, path=path)
+    try:
+      resp = post(url, data=encode(data))
+      if not resp.ok:
+        resp.raise_for_status()
+    except Exception as e:
+      raise e
+  return setter
 
 def verb_list(args, config):
   if args['<cluster>'] is not None:
