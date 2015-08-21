@@ -15,10 +15,8 @@ from json import dumps as encode
 def get_getter(args, config):
   cluster = args['<cluster>']
   conn_str = config['ConnectionStrings'][cluster]
-  print "***", conn_str
   def getter(path):
     url = "http://{conn_str}/{path}".format(conn_str=conn_str, path=path)
-    print "+++", url
     try:
       resp = get(url)
       if resp.status_code != 200:
