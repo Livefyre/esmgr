@@ -12,6 +12,16 @@ from requests import get
 from json import loads as decode
 from json import dumps as encode
 
+def chase(object, fields):
+  try:
+    for selection in fields:
+      object = object[selection]
+    return object
+  except KeyError:
+    return None
+  except IndexError:
+    return None
+
 def get_getter(args, config):
   cluster = args['<cluster>']
   conn_str = config['ConnectionStrings'][cluster]
