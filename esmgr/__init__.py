@@ -29,7 +29,7 @@ def get_getter(args, config):
     url = "http://{conn_str}/{path}".format(conn_str=conn_str, path=path)
     try:
       resp = get(url)
-      if resp.status_code != 200:
+      if not resp.status_code.ok:
         resp.raise_for_status()
       else:
         return decode(resp.content)
