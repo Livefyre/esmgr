@@ -1,0 +1,5 @@
+build/
+dist/
+eggs/
+esmgr.egg-info/
+esmgr/__init__.pyc
